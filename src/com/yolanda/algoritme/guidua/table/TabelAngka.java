@@ -74,7 +74,7 @@ public class TabelAngka {
         };
         tableModel = new DefaultTableModel(initData,tableColom);
         tableBiodata.setModel(tableModel);
-        tableBiodata.setAutoCreateRowSorter(false);
+        tableBiodata.setAutoCreateRowSorter(true);
         tableBiodata.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
 
