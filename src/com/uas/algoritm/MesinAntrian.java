@@ -25,9 +25,34 @@ public class MesinAntrian {
 
     // untuk membuat dan menginisialisasikan objec queue(antrian) dengan menggunakan linked list
     Queue<Object> antrian = new LinkedList<>();
+    //mendeklarasikan variabel dengan nama nomor dg type data integer
     int nomor = 0;
 
     public MesinAntrian() {
+        buttonAmbilAntrian.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                //untuk mensetting tanggal dan waktu otomatis
+                Calendar cal = Calendar.getInstance();
+                SimpleDateFormat s = new SimpleDateFormat("EEEE, dd-MMMM-yyyy HH:mm:ss");
+                String tgl = s.format(cal.getTime());
+                nomor++; //menambah nomor antrian
+                String antr = "Nomor Antrian " + nomor; //menyimpan kedalam variabel antr
+                antrian.add(antr); //memasukkan antrian ke list menggunakan algoritma linkedlist yaitu add
+                String cvt = String.valueOf(antrian.size());//mengambil ukuran/panjangnya list
+                lbJmlAntrian.setText(cvt); //mensetting text di jumlah antrian untuk menampilkan panjang list
+                lbPanggilanAntrian.setText("" + antrian.peek());//menampilkan data paling atas
+                lbTotalAntrian.setText("" + nomor); //untuk mensettin total antrian
+                textArea1.append(antr + "\n");
+
+                txtAtas.setText("RSUD Sei Dareh");
+                txtAtas1.setText(tgl);
+                txtAtas2.setText("Nomor Antrian");
+                txtAtas3.setText(" " + nomor);
+                txtAtas4.setText("Silahkan Menunggu " + cvt + " Antrian Lagi ");
+            }
+        });
 
         buttonProsesAntrian.addActionListener(new ActionListener() {
             @Override
@@ -37,7 +62,8 @@ public class MesinAntrian {
                     JOptionPane.showMessageDialog(rootPanel, "Ambil Nomor antrian terlebih dahulu !");
                 }
                 textArea1.setText("");//mengkosongkan daftar antrian di teksarea
-                antrian.poll();
+                antrian.poll();//digunakan untuk mengatur banyaknya antrian yang di buat
+                //setelah antrian diisi,akan di lakukan looping menggunakan forEach loop.
                 antrian.forEach((Object element) -> {
                     textArea1.append("" + element + "\n"); //mencetak daftar antrian ke textArea
                 });
@@ -46,6 +72,8 @@ public class MesinAntrian {
                     lbTotalAntrian.setText("0"); //total antrian 0
                     lbPanggilanAntrian.setText("-----");
                 } else {
+                    //jika data tidak kosong maka akan menggunakan fungsi peek lagi
+                    //apakah data yang masuk sudah sesuai sister queue
                     lbPanggilanAntrian.setText("" + antrian.peek());
                 }
                 String cvt = String.valueOf(antrian.size());
@@ -59,30 +87,7 @@ public class MesinAntrian {
         });
 
 
-                buttonAmbilAntrian.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
 
-                        //untuk mensetting tanggal dan waktu otomatis
-                        Calendar cal = Calendar.getInstance();
-                        SimpleDateFormat s = new SimpleDateFormat("EEEE, dd-MMMM-yyyy HH:mm:ss");
-                        String tgl = s.format(cal.getTime());
-                        nomor++; //menambah nomor antrian
-                        String antr = "Nomor Antrian " + nomor; //menyimpak kedalam variabel antr
-                        antrian.add(antr); //memasukkan antrian ke list
-                        String cvt = String.valueOf(antrian.size());//mengambil ukuran/panjangnya list
-                        lbJmlAntrian.setText(cvt); //mensetting text di jumlah antrian untuk menampilkan panjang list
-                        lbPanggilanAntrian.setText("" + antrian.peek());//menampilkan data paling atas
-                        lbTotalAntrian.setText("" + nomor); //untuk mensettin total antrian
-                        textArea1.append(antr + "\n");
-
-                        txtAtas.setText("RSUD Sei Dareh");
-                        txtAtas1.setText(tgl);
-                        txtAtas2.setText("Nomor Antrian");
-                        txtAtas3.setText(" " + nomor);
-                        txtAtas4.setText("Silahkan Menunggu " + cvt + " Antrian Lagi ");
-                    }
-                });
     }
 
     public JPanel getRootPanel() {
